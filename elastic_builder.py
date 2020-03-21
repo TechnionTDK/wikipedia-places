@@ -3,27 +3,24 @@ import json
 
 allLabels = []
 labelsToUrls = {}
-labelsToCoordinates = {}
+#labelsToCoordinates = {}
+urlsToAbstract = {}
+elasticDocs = {}
 
 # loading data
 with open(r"input/wiki_hebrew_labels.json", "r", encoding='utf-8') as read_file:
     labelsAndUrls = json.load(read_file)
-
+with open(r"input/wiki_hebrew_abstracts.json", "r", encoding='utf-8') as read_file:
+    abstractsAndUrls = json.load(read_file)
 
 for labelDict in labelsAndUrls:
     label = labelDict['rdfs:label']
     allLabels.append(label)
     labelsToUrls[label] = labelDict['uri']
-print(allLabels.__len__())
-# print(labelsToUrls)
-# print(labels[labels.__len__()-1])
-# print(urls[urls.__len__()-1])
 
-
-# with open(r"input/wiki_hebrew_abstracts.json", "r", encoding='utf-8') as read_file:
-#     data = json.load(read_file)
-# print(data)
-
+for abstractDict in abstractsAndUrls:
+    url = abstractDict['uri']
+    urlsToAbstract[url] = abstractDict['dbo:abstract']
 
 
 # get coordinates
@@ -49,17 +46,46 @@ for label in allLabels:
     PARAMS["titles"] = label
     for k, v in S.get(url=URL, params=PARAMS).json()['query']['pages'].items():
         if 'coordinates' in v:
-            labelsToCoordinates[label] = v['coordinates'][0]
+            fullCoordinates = v['coordinates'][0]
+            coordinates = {
+                "lat": fullCoordinates['lat'],
+                "lon": fullCoordinates['lon']
+            }
+            url = labelsToUrls[label]
+            doc = {
+                "label": label,
+                "coordinates": coordinates,
+                "url": url,
+                "abstract": urlsToAbstract[url]
+            }
+            elasticDocs.append(doc)
             # print("Latitute: " + str(v['coordinates'][0]['lat']))
             # print("Longitude: " + str(v['coordinates'][0]['lon']))
-        else:
-            del labelsToUrls[label]
+        # else:
+        #     del labelsToUrls[label]
+# print(labelsToCoordinates)
+# print("#coordinatesSize: ", labelsToCoordinates.__len__())
+# print("#urlsSize: ", labelsToUrls.__len__())
+#
+# testLabel = allLabels[allLabels.__len__()-1]
+# print(testLabel, labelsToCoordinates[testLabel])
+for doc in elasticDocs:
+    with open('output/' + doc["label"] + '.json', 'w', encoding='utf-8') as outfile:
+        json.dump(doc, outfile, ensure_ascii=False)
+    res = S.post(url='http://localhost:9200/nerya/_doc/'+doc["label"], headers={'Content-Type': 'application/json'}, json=doc)
 
-print("#coordinatesSize: ", labelsToCoordinates.__len__())
-print("#urlsSize: ", labelsToUrls.__len__())
+# for label in allLabels:p
+#     elas_doc = {
+#         "label": label,
+#         "coordinates": labelsToCoordinates[label]
+#     }
+#
+#     # es.index(index="nerya", doc_type='_doc', id=label,body=doc)
+#     print("start indexing lable "+label+ "...")
+#     res = S.post(url='http://localhost:9200/nerya/_doc/'+label, headers={'Content-Type': 'application/json'}, json=elas_doc)
+#     print("finished indexing lable "+label+"!")
 
-testLabel = allLabels[allLabels.__len__()-1]
-print(testLabel, labelsToCoordinates[testLabel], labelsToUrls[testLabel])
+
 
 # for label in labels:
 #     if label not in results:
