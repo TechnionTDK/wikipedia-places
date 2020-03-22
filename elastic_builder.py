@@ -1,5 +1,9 @@
+import urllib.parse
+
 import requests
 import json
+
+from idna import unicode
 
 S = requests.Session()
 
@@ -11,9 +15,21 @@ class dataLoad:
         self.labelsToUrls = {}
         self.urlsToAbstract = {}
 
+
         # get data
         self.__labelsAndUrlsFromJson()
         self.__abstractsFromJson()
+
+        # print("size:")
+        # print("self.allLabels: ", self.allLabels.__len__())
+        # print("self.labelsToUrls: ", self.labelsToUrls.__len__())
+        # print("self.urlsToAbstract: ", self.urlsToAbstract.__len__())
+
+        testLabel = "מתמטיקה"
+        url = self.labelsToUrls[testLabel]
+        print(testLabel, url)
+        print(self.urlsToAbstract[url])
+
 
     def __labelsAndUrlsFromJson(self):
         with open(r"input/wiki_hebrew_labels.json", "r", encoding='utf-8') as read_file:
@@ -24,13 +40,38 @@ class dataLoad:
             self.allLabels.append(label)
             self.labelsToUrls[label] = labelDict['uri']
 
+
+
+
+
+            # self.labelsToUrls[label] = urllib.parse.quote(labelDict['uri'])
+            # self.labelsToUrls[label] = labelDict['uri'].strip().encode('utf-8')
+            # url = unicode(labelDict['uri'])#.strip().encode('idna')
+            # # url2 = labelDict['uri'].strip().encode('idna')
+            # url3 = labelDict['uri'].strip().encode('utf-8')
+            # url4 = labelDict['uri'].encode('idna')
+
+
+
+
+
+
     def __abstractsFromJson(self):
         with open(r"input/wiki_hebrew_abstracts.json", "r", encoding='utf-8') as read_file:
             abstractsAndUrls = json.load(read_file)
         # saves in better data structures
         for abstractDict in abstractsAndUrls:
-            url = abstractDict['uri']
+
+            url = urllib.parse.unquote(abstractDict['uri'])
             self.urlsToAbstract[url] = abstractDict['dbo:abstract']
+
+
+
+
+            # url2 = abstractDict['uri'].strip().encode('idna')
+            #             # url3 = abstractDict['uri'].strip().encode('utf-8')
+            #             # url4 = abstractDict['uri'].encode('idna')
+            #             # print(url)
 
 
 # allLabels = ["הקרב על גבעת התחמושת", "בית הספר לשוטרים (ירושלים)", "בית הספר רנה קסין", "קריית הממשלה (מזרח ירושלים)", "שכונות הבריח", "קריית הלאום", "יד הזיכרון למגיני ירושלים",
@@ -66,12 +107,18 @@ def saveWithCoordinates(data):
                     "lon": fullCoordinates['lon']
                 }
                 url = data.labelsToUrls[label]
+                abstract = ""
+                if url in data.urlsToAbstract:
+                    abstract = data.urlsToAbstract[url]
                 doc = {
                     "label": label,
                     "coordinates": coordinates,
                     "url": url,
-                    "abstract": data.urlsToAbstract[url]
+                    "abstract": abstract
                 }
+                print(doc)
+                with open('output/' + doc["label"] + '.json', 'w', encoding='utf-8') as outfile:
+                    json.dump(doc, outfile, ensure_ascii=False)
                 docs.append(doc)
     return docs
 
