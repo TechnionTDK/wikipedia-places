@@ -1,8 +1,5 @@
-import json
-import re
 import requests
 from elasticsearch import Elasticsearch
-import geopy.distance
 S = requests.Session()
 index = "all"
 
@@ -36,7 +33,7 @@ def test():
 
 
 def compare(geoPlace, elasticFull):
-    if len(elasticFull) == 2000:
+    if len(elasticFull) == 500:
         print("fullSize")
         return 1
     geoTitle = geoPlace['title']
@@ -61,7 +58,7 @@ def Geosearch(params, elasticRes):
         "format": "json",
         "list": "geosearch",
         "gscoord": params[1]+"|"+params[2],
-        "gslimit": "2000",
+        "gslimit": "500",
         "gsradius": gsradius,
         "action": "query"
     }
@@ -111,7 +108,7 @@ def elasticSearch(params):
     }
 
     elastic_client = connect()
-    res = elastic_client.search(index=index, body=query, size=2000)
+    res = elastic_client.search(index=index, body=query, size=500)
     print("Elastic: ", res)
     # print("total hits with Elastic: ", len(res["hits"]["hits"]))
     return res["hits"]["hits"]

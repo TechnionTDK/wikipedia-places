@@ -18,6 +18,7 @@ def restartElasticIndex():
         if i == index:
             es.indices.delete(index=i)
 
+
 def toFilename(s):
     s = str(s).strip().replace(' ', '_')
     return re.sub(r'(?u)[^-\w.]', '', s)
@@ -95,10 +96,10 @@ def saveWithCoordinates(data):
                     "url": url,
                     "abstract": abstract
                 }
-                print(doc)
-                with open('output/' + toFilename(doc["label"]) + '.json', 'w',
-                          encoding='utf-8') as outfile:  # for saving the files on your computer
-                    json.dump(doc, outfile, ensure_ascii=False)
+                # print(doc)
+                # with open('output/' + toFilename(doc["label"]) + '.json', 'w',
+                #           encoding='utf-8') as outfile:  # for saving the files on your computer
+                #     json.dump(doc, outfile, ensure_ascii=False)
                 docs.append(doc)
     return docs
 
