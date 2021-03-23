@@ -41,14 +41,14 @@ def RUN_SEARCH():
     params.append(request.args.get('lat', type=str))
     params.append(request.args.get('lon', type=str))
     return json.dumps(search(params), ensure_ascii=False)
-    #return ''.join(str(dict)+', ' for dict in search(params))
 
 
 if __name__ == "__main__":
-    app.run()
+    app.debug = True
+    app.run(host='0.0.0.0', port='80')
 
 """ HTML  request would be
-http://127.0.0.1:5000/wiki_by_place_il?radius=xxx&lat=xxx&lon=xxx
+http://132.69.8.7/wiki_by_place_il?radius=xxx&lat=xxx&lon=xxx
 example:
-http://127.0.0.1:5000/wiki_by_place_il?radius=1km&lat=32.7775&lon=35.02166667
+http://132.69.8.7/wiki_by_place_il?radius=1km&lat=32.7775&lon=35.02166667
 """
