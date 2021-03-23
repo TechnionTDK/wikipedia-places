@@ -71,13 +71,6 @@ def Geosearch(params, elasticRes):
         print("len(geoPlace)!=len(elasticRes): ",len(PLACES), "!=", len(elasticRes))
         return 0
 
-    # geoPlaces = []
-    # for place in PLACES:
-    #     geoPlaces.append(place['title'])
-    # geoPlaces.sort()
-    # print(len(geoPlaces))
-    # for i in range(len(geoPlaces)):
-    #     print("geo: ",geoPlaces[i],", elastic: ",elasticRes[i]["_source"]["label"])
 
     for place in PLACES:
         if not compare(place, elasticRes):

@@ -1,5 +1,4 @@
-import json
-import requests
+
 from elasticsearch import Elasticsearch
 import geopy.distance
 index = "all"
@@ -10,7 +9,6 @@ def connect():
 
 
 def search(params):
-    #params = params.split(', ')
     query = {
         "query": {
             "bool": {
@@ -29,12 +27,9 @@ def search(params):
 
     elastic_client = connect()
     res = elastic_client.search(index=index, body=query, size=10000)
-    # print(res)
-    # print("total hits:", len(res["hits"]["hits"]))
     sourceCoords = (float(params[1]), float(params[2]))
     withDist = []
     for data in res["hits"]["hits"]:
-        # print(data)
         relevant = data["_source"]
 
         location = relevant["pin"]["location"]
@@ -42,14 +37,12 @@ def search(params):
         dist = geopy.distance.distance(sourceCoords, curCoords).km
         relevant["pin"]["distance[km]"] = dist
 
-        # print(location)
-        # print(dist)
         withDist.append(relevant)
-    #print(withDist)
     return withDist
 
 
 def main():
+    #example:
     params = "1km, 32.7775, 35.02166667".split(", ")
     print(search(params))
 
