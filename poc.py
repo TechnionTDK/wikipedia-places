@@ -112,8 +112,8 @@ def search(params):
 
 
 def main():
-    # restartElasticPOC()
-    # elasticBuilder()
+    restartElasticPOC()
+    elasticBuilder()
 
     search("3km, 31.799017, 35.22808")
 
