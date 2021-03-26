@@ -10,7 +10,7 @@ app = Flask(__name__)
 def RUN_SEARCH():
     params = []
     params.append(request.args.get('radius', type=str))
-    params+=request.args.get('lat&lon', type=str).split(", ")
+    params+=request.args.get('lat,lon', type=str).split(",")
     return json.dumps(search(params), ensure_ascii=False)
 
 
