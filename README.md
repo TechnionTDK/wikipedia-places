@@ -52,13 +52,12 @@ install python3 with these commands:
 3. Python packages
 install the following python packages:
 (Versions number r not necessity)
-elasticsearch==7.6.0
-Flask==1.1.2
-geopy==1.21.0
-requests==2.23.0
+elasticsearch==7.6.0  
+Flask==1.1.2  
+geopy==1.21.0  
+requests==2.23.0  
 
-install a package using the following command:
-On command line:
+Install a package using the following command:
 	python -m pip install SomePackage
 	
 4. Input directory:
