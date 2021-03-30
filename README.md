@@ -6,20 +6,22 @@ This project's final product is a server - http request returning json.
   
 The server input is:  
 Area - location on earth and radius.  
-location - latitude and longitude ("lat,lon").  
+location - latitude and longitude ("lat, lon").  
 radius - number and it's unit [mm, cm, m, km...] ("radius").  
   
 The server output is:  
 All wikipedia entries in Hebrew with coordinates at the defined area.  
 Every entry consists of the following data:  
 "label" - headline of the wikipedia page.  
+"url" - url of the wikipedia page.  
+"abstract" - this name is taken from wikipedia dump files and contain the same data. This data is based on the information of the wikipedia page. 
 "pin" - describing the coordinates by {"location" "distance[km]"} where:
   * "location" - location that appears on this wikipedia page.  
   * "distance[km]" - precise distance from the input's location.  
-"url" - url of the wikipedia page.  
-"abstract" - this name is taken from wikipedia dump files and contain the same data. This data is based on the information of the wikipedia page.  
+    
+ 
   
-""" HTML request would be
+""" HTML request would be:  
 http://132.69.8.7/wiki_by_place?radius=xxx&lat,lon=xxx,xxx  
 http://132.69.8.7/wiki_by_place?lat,lon=xxx,xxx&radius=xxx  
 Examples - up to 1km from the Technion:  
