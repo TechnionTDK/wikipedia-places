@@ -14,7 +14,7 @@ All wikipedia entries in Hebrew with location (coordinates) at the defined area.
 Every entry consists of the following data:  
 "label" - headline of the wikipedia page.  
 "url" - url of the wikipedia page.  
-"abstract" - this name is taken from wikipedia dump files and contain the same data. This data is based on the information of the wikipedia page.  
+"abstract" - this name is taken from wikipedia dump files and contain the same data. This data is based on the information in the wikipedia page.  
 "pin" - describing the coordinates by {"location" "distance[km]"} where:
   * "location" - location that appears on this wikipedia page (latitude & longitude).  
   * "distance[km]" - precise distance from the input's location.  
@@ -41,9 +41,9 @@ Download this repository to your local machine.
 On command line:  
 	git clone https://github.com/TechnionTDK/wikipedia-places  
 2. Install Python:  
-*U can try another version if u already have it  
+*You can try another version if you already have it  
 Windows:  
-Download python3 latest version from python official website  
+Download python3 latest version from python official website.  
 Linux:  
 Install python3 with these commands:  
 	sudo apt-get update  
@@ -70,6 +70,8 @@ Use port 9200 (or change this number on the scripts to your port number)
 
 6. Build the Elasticsearch:  
 Run elastic_builder.py  
+Use [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command to prevent it from stopping, since the download is long.  
+  
 For testing - after succesfull build:  
 Run elasticTestAll.py  
 
