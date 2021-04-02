@@ -1,4 +1,4 @@
-wikipedia-places  
+Wikipedia-places  
 This project was done in the TDK - Technion Data & Knowledge Lab of the CS faculty.  
 By Nerya Hadad under the supervision of Dr. Oren Mishali.  
   
@@ -10,17 +10,17 @@ Area - location on earth and radius.
   * radius - number and its unit [mm, cm, m, km...] ("radius").  
   
 The server output is:  
-All wikipedia entries in Hebrew with location (coordinates) at the defined area.  
+All Wikipedia entries in Hebrew with location (coordinates) at the defined area.  
 Every entry consists of the following data:  
-"label" - headline of the wikipedia page.  
-"url" - url of the wikipedia page.  
-"abstract" - this name is taken from wikipedia dump files and contain the same data. This data is based on the information in the wikipedia page.  
+"label" - headline of the Wikipedia page.  
+"url" - url of the Wikipedia page.  
+"abstract" - this name is taken from Wikipedia dump files and contain the same data. This data is based on the information in the Wikipedia page.  
 "pin" - describing the coordinates by {"location" "distance[km]"} where:
-  * "location" - location that appears on this wikipedia page (latitude & longitude).  
+  * "location" - location that appears on this Wikipedia page (latitude & longitude).  
   * "distance[km]" - precise distance from the input's location.  
     
   
-""" HTML request would be:  
+""" HTML request would be (2 options):  
 http://132.69.8.7/wiki_by_place?radius=xxx&lat,lon=xxx,xxx  
 http://132.69.8.7/wiki_by_place?lat,lon=xxx,xxx&radius=xxx  
 Examples - up to 1km from the Technion:  
