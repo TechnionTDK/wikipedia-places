@@ -7,7 +7,7 @@ This project's final product is a server - http request returning json.
 The server input is:  
 Area - location on earth and radius.  
   * location - latitude and longitude ("lat, lon").  
-  * radius - number and it's unit [mm, cm, m, km...] ("radius").  
+  * radius - number and its unit [mm, cm, m, km...] ("radius").  
   
 The server output is:  
 All wikipedia entries in Hebrew with location (coordinates) at the defined area.  
@@ -51,7 +51,7 @@ Install python3 with these commands:
 	
 3. Python packages:  
 Install the following python packages:  
-(Versions number are not necessity, but guarnteed to do the job)  
+(Versions number are not necessary, but guaranteed to do the job)  
 elasticsearch==7.6.0  
 Flask==1.1.2  
 geopy==1.21.0  
