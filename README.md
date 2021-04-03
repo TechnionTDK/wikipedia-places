@@ -105,4 +105,5 @@ Challenges I have faced:
 	  * Finding way to extract coordinates out of wikipedia label.  
 	  * Find the best solution for search by area and proof it (POC).  
   * Fixing an older project in order to extract the right abstract.  
+  * Trying to get better abstract directly from wikipedia pages.  
   
