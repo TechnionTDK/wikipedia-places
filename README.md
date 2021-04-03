@@ -90,7 +90,7 @@ This script is using the files in "poc" folder to prove that elasticsearch is a 
 
 search.py :  
 Implementation of the actual search for specific area on elastic.  
-It's main is running an example.  
+It's main is running an examples.  
   
 Other folder:  
 Output:  
