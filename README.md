@@ -5,23 +5,22 @@
 #### This project's final product is a server - http request returning json.  
   
 #### The server input is:  
-Area - location on earth and radius.  
+##### Area - location on earth and radius.  
   * location - latitude and longitude ("lat, lon").  
   * radius - number and its unit [mm, cm, m, km...] ("radius").  
   
 #### The server output is:  
-All Wikipedia entries in Hebrew with location (coordinates) at the defined area.  
+##### All Wikipedia entries in Hebrew with location (coordinates) at the defined area.  
 Every entry consists of the following data:  
 "label" - headline of the Wikipedia page.  
 "url" - url of the Wikipedia page.  
 "abstract" - this name is taken from Wikipedia dump files and contain the same data. This data is based on the information in the Wikipedia page.Some labels have no abstract.  
-  
 "pin" - describing the coordinates by {"location" "distance[km]"} where:
   * "location" - location that appears on this Wikipedia page (latitude & longitude).  
   * "distance[km]" - precise distance from the input's location.  
 
   
-""" HTML request would be (2 options):  
+##### """ HTML request would be (2 options):  
 http://132.69.8.7/wiki_by_place?radius=xxx&lat,lon=xxx,xxx  
 http://132.69.8.7/wiki_by_place?lat,lon=xxx,xxx&radius=xxx  
 Examples - up to 1km from the Technion:  
@@ -31,7 +30,7 @@ http://132.69.8.7/wiki_by_place?lat,lon=32.7775,35.02166667&radius=100000cm
 """
     
     
-Entry example (by running http://132.69.8.7/wiki_by_place?lat,lon=31.26373189,34.81106043&radius=1cm):  
+##### Entry example (by running http://132.69.8.7/wiki_by_place?lat,lon=31.26373189,34.81106043&radius=1cm):  
 [{"label": "פארק גב ים נגב",  
  "pin": {"location": {"lat": 31.26373189, "lon": 34.81106043}, "distance[km]": 0.0},  
  "url": "https://he.wikipedia.org/wiki/פארק_גב_ים_נגב",  
