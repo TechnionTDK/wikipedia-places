@@ -1,6 +1,6 @@
 # Wikipedia-places  
 #### This project was done in the TDK - Technion Data & Knowledge Lab of the CS faculty.  
-By Nerya Hadad under the supervision of Dr. Oren Mishali.  
+#### By Nerya Hadad under the supervision of Dr. Oren Mishali.  
   
 #### This project's final product is a server - http request returning json.  
   
