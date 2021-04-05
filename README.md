@@ -20,14 +20,13 @@ Every entry consists of the following data:
   * "distance[km]" - precise distance from the input's location.  
 
   
-##### """ HTML request would be (2 options):  
+##### HTML request would be (2 options):  
 http://132.69.8.7/wiki_by_place?radius=xxx&lat,lon=xxx,xxx  
 http://132.69.8.7/wiki_by_place?lat,lon=xxx,xxx&radius=xxx  
 Examples - up to 1km from the Technion:  
 http://132.69.8.7/wiki_by_place?radius=1km&lat,lon=32.7775,35.02166667  
 http://132.69.8.7/wiki_by_place?radius=1000m&lat,lon=32.7775,35.02166667  
 http://132.69.8.7/wiki_by_place?lat,lon=32.7775,35.02166667&radius=100000cm  
-"""
     
     
 ##### Entry example (by running http://132.69.8.7/wiki_by_place?lat,lon=31.26373189,34.81106043&radius=1cm):  
