@@ -1,8 +1,8 @@
 # Wikipedia-places  
-##### This project was done in the TDK - Technion Data & Knowledge Lab of the CS faculty.  
-##### By Nerya Hadad under the supervision of Dr. Oren Mishali.  
+#### This project was done in the TDK - Technion Data & Knowledge Lab of the CS faculty.  
+#### By Nerya Hadad under the supervision of Dr. Oren Mishali.  
   
-##### This project's final product is a server - http request returning json.  
+#### This project's final product is a server - http request returning json.  
   
 ###### The server input is:  
 Area - location on earth and radius.  
@@ -41,7 +41,7 @@ Entry example (by running http://132.69.8.7/wiki_by_place?lat,lon=31.26373189,34
   
 ## Getting Started
 
-##### These instructions will get you a copy of the project up and running on your machine:
+#### These instructions will get you a copy of the project up and running on your machine:
 
 ###### 1. Clone:  
 Download this repository to your local machine.  
