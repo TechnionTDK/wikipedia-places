@@ -4,12 +4,12 @@
   
 #### This project's final product is a server - http request returning json.  
   
-###### The server input is:  
+##### The server input is:  
 Area - location on earth and radius.  
   * location - latitude and longitude ("lat, lon").  
   * radius - number and its unit [mm, cm, m, km...] ("radius").  
   
-###### The server output is:  
+##### The server output is:  
 All Wikipedia entries in Hebrew with location (coordinates) at the defined area.  
 Every entry consists of the following data:  
 "label" - headline of the Wikipedia page.  
