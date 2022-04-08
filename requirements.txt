@@ -1,0 +1,7 @@
+elasticsearch==7.6.0
+Flask==1.1.2
+geopy==1.21.0
+requests==2.23.0
+Jinja2==3.0.3
+itsdangerous==2.0.1
+werkzeug==2.0.2
