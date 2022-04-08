@@ -56,10 +56,11 @@ Install python3 with these commands:
 	sudo apt-get install python3.6  
 	
 ##### 3. Input directory:  
-Input was generated following the instructions [here](https://github.com/TechnionTDK/dbpedia-hebrew)  
+Input was generated following the instructions [here](https://github.com/TechnionTDK/dbpedia-hebrew).  
 And taking it's relevant output as our input (our "input" directory):  
 At the mentioned project, under "usage" - there are 3 scripts, only 2 are relevant for our input:  
-labels_generator.py, abstract_generator.py. (anchor_texts_generator.py is not relevant).
+labels_generator.py, abstract_generator.py. (anchor_texts_generator.py is not relevant).    
+
 You can rerun it to generate updated input.
 
 ##### 4. Python packages:
@@ -71,46 +72,65 @@ Or you can do it manually by running:
 
 python3 -m pip install packageName
 
-While the packageNames are:
-elasticsearch==7.6.0
-Flask==1.1.2
-geopy==1.21.0
-requests==2.23.0
-Jinja2==3.0.3
-itsdangerous==2.0.1
-werkzeug==2.0.2
+While the packageNames are: 
+
+elasticsearch==7.6.0    
+
+Flask==1.1.2    
+
+geopy==1.21.0   
+
+requests==2.23.0    
+
+Jinja2==3.0.3   
+
+itsdangerous==2.0.1 
+
+werkzeug==2.0.2 
 
 You can verify that you have installed the right packages using:
 
 pip list
 	
 ##### 5. Setup Elasticsearch
-Now we are going to setup Elasticsearch.
-On Linux, run the following commands in your home directory:
+Now we are going to setup Elasticsearch.    
 
-cd ~
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.0-linux-x86_64.tar.gz
-tar -xf elasticsearch-7.6.0-linux-x86_64.tar.gz
-cd elasticsearch-7.6.0/
-bin/elasticsearch
-Use port 9200 (or change this number on the scripts to your port number) 
+On Linux, run the following commands in your home directory:    
+
+cd ~    
+
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.0-linux-x86_64.tar.gz   
+
+tar -xf elasticsearch-7.6.0-linux-x86_64.tar.gz 
+
+cd elasticsearch-7.6.0/ 
+
+bin/elasticsearch   
+
+Use port 9200 (or change this number on the scripts to your port number).     
 
 For Windows use:
 https://github.com/TechnionTDK/project-guidelines/wiki/ElasticSearch
 
 ##### 6. Setup Flask  
-Run the following commands for activating Flask:
-python3.7 -m venv env
-source env/bin/activate
+Run the following commands for activating Flask:    
 
-We created a virtual environment that should be activated every time you connect to the system: source env/bin/activate
-Use port 80 (or change the number on server.py to your port)  
+python3.7 -m venv env   
+
+source env/bin/activate 
+
+
+We created a virtual environment that should be activated every time you connect to the system: source env/bin/activate 
+Use port 80 (or change the number on server.py to your port)    
+
 More information if needed: https://github.com/TechnionTDK/project-guidelines/wiki/ExecuteFlaskAppOnLinux
 
 ##### 7. Build the Elasticsearch:  
-Run the elastic_builder.py using screen:
-screen
-python elastic_builder.py
+Run the elastic_builder.py using screen:    
+
+screen  
+
+python elastic_builder.py   
 
 This builder creates the indices for Elasticsearch.
 This phase is very long and can take several days- you should use [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command to prevent it from stopping.
@@ -124,6 +144,7 @@ python elasticTestAll.py
 Use [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command to prevent it from stopping.  
   
 python server.py	
+
 Your server is up now and can be communicated.	
   
 #### Other scripts:  
