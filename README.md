@@ -135,12 +135,16 @@ screen
 
 python elastic_builder.py   
 
-This builder creates the indices for Elasticsearch.
-This phase is very long and can take several days- you should use [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command to prevent it from stopping.
-For checking if the build is still running use:	
+This builder creates the indices for Elasticsearch. 
+
+This phase is very long and can take several days- you should use [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command to prevent it from stopping.    
+
+For checking if the build is still running use:	    
+
 ps -fA | grep python	
   
-After the build is finished, you can test if the build is succeeded by:	
+After the build is finished, you can test if the build is succeeded by:	    
+
 python elasticTestAll.py  
 
 ##### 8. Run server.py:  
