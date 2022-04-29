@@ -4,8 +4,17 @@ import json
 
 from elasticsearch import Elasticsearch
 
+file = None
 S = requests.Session()
 index = "all"
+allowedImageSuffix = ".jpg"
+URL = "https://he.wikipedia.org/w/api.php"
+
+
+def reportProcess(report):
+    global file
+    file.write(f'{str(report)}\n')
+    print(report)
 
 
 def connect():
@@ -13,10 +22,12 @@ def connect():
 
 
 def restartElasticIndex():
+    reportProcess("restartElasticIndex started")
     es = connect()
     for i in es.indices.get('*'):
         if i == index:
             es.indices.delete(index=i)
+    reportProcess("restartElasticIndex finished")
 
 
 def toFilename(s):
@@ -28,8 +39,25 @@ def coordinatesOnEarth(fullCoordinates):
     return abs(fullCoordinates['lat']) <= 90 and abs(fullCoordinates['lon']) <= 180
 
 
+def getImageUrl(images):
+    for image in images:
+        if 'title' in image and allowedImageSuffix in image['title']:
+            PARAMS = {
+                "action": "query",
+                "titles": image['title'].replace("קובץ", 'File').replace(" ", "_"),
+                "prop": "imageinfo",
+                "iiprop": "url",
+                "format": "json"
+            }
+            imageInfo = S.get(url=URL, params=PARAMS).json()['query']['pages']
+            if '-1' in imageInfo and 'imageinfo' in imageInfo['-1'] and len(imageInfo['-1']['imageinfo']) and 'url' in imageInfo['-1']['imageinfo'][0]:
+                return imageInfo['-1']['imageinfo'][0]['url']
+    return ""
+
+
 class dataLoad:
     def __init__(self):
+        reportProcess("start dataLoad")
         # data structures
         self.allLabels = []
         self.labelsToUrls = {}
@@ -39,10 +67,10 @@ class dataLoad:
         self.__labelsAndUrlsFromJson()
         self.__abstractsFromJson()
 
-        print(self.allLabels.__len__())
-        print("labels size: ", self.labelsToUrls.__len__())
-        print("abstacts size: ", self.urlsToAbstract.__len__())
-        print("finish dataLoad")
+        reportProcess(self.allLabels.__len__())
+        reportProcess(f'labels size: {self.labelsToUrls.__len__()}')
+        reportProcess(f'abstacts size: {self.urlsToAbstract.__len__()}')
+        reportProcess("finish dataLoad")
 
     def __labelsAndUrlsFromJson(self):
         with open(r"input/wiki_hebrew_labels.json", "r", encoding='utf-8') as read_file:
@@ -63,48 +91,41 @@ class dataLoad:
 
 
 def saveWithCoordinates(data):
-    # init
-    URL = "https://he.wikipedia.org/w/api.php"
+    reportProcess("saveWithCoordinates started!")
     PARAMS = {
         "action": "query",
         "format": "json",
         "titles": "",
-        "prop": "coordinates"
+        "prop": "coordinates|images"
     }
     docs = []
 
-    # saves
     for label in data.allLabels:
         PARAMS["titles"] = label
         for k, v in S.get(url=URL, params=PARAMS).json()['query']['pages'].items():
+            reportProcess(v)
             if 'coordinates' in v and coordinatesOnEarth(v['coordinates'][0]):
-                fullCoordinates = v['coordinates'][0]
-                coordinates = {
-                    "lat": fullCoordinates['lat'],
-                    "lon": fullCoordinates['lon']
-                }
                 url = data.labelsToUrls[label]
-                abstract = ""
-                if url in data.urlsToAbstract:
-                    abstract = data.urlsToAbstract[url]
-                pin = {"location":
-                           coordinates
-                       }
+
+                pin = {"location": {
+                    "lat": v['coordinates'][0]['lat'],
+                    "lon": v['coordinates'][0]['lon']
+                }}
+
                 doc = {
                     "label": label,
                     "pin": pin,
                     "url": url,
-                    "abstract": abstract
+                    "abstract": data.urlsToAbstract[url] if url in data.urlsToAbstract else "",
+                    "imageUrl": getImageUrl(v['images'])
                 }
-                # print(doc)
-                # with open('output/' + toFilename(doc["label"]) + '.json', 'w',
-                #           encoding='utf-8') as outfile:  # for saving the files on your computer
-                #     json.dump(doc, outfile, ensure_ascii=False)
                 docs.append(doc)
+    reportProcess("saveWithCoordinates finished!")
     return docs
 
 
 def elasticBuilder(elasticDocs):
+    reportProcess("elasticBuilder started!")
     es = connect()
     mapping = {
         "mappings": {
@@ -124,13 +145,25 @@ def elasticBuilder(elasticDocs):
         print("start indexing label " + doc["label"] + "...")
         es.index(index=index, body=doc)
         print("finish indexing label " + doc["label"] + "...")
+    reportProcess("elasticBuilder finished!")
 
 
 def main():
-    data = dataLoad()
-    elasticDocs = saveWithCoordinates(data)
-    restartElasticIndex()
-    elasticBuilder(elasticDocs)
+    global file
+    file = open("index_process.txt", "w")
+
+    try:
+        data = dataLoad()
+        elasticDocs = saveWithCoordinates(data)
+        restartElasticIndex()
+        elasticBuilder(elasticDocs)
+        reportProcess("============== finish successfully!!!! ==============")
+        file.close()
+
+    except Exception as e:
+        reportProcess("finish with Exception!!!!")
+        reportProcess(e)
+        file.close()
 
 
 if __name__ == "__main__":
