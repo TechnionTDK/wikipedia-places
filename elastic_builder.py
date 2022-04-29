@@ -8,6 +8,7 @@ file = None
 S = requests.Session()
 index = "all"
 allowedImageSuffix = ".jpg"
+defaultMinAbstractWords = 4
 URL = "https://he.wikipedia.org/w/api.php"
 
 
@@ -37,6 +38,20 @@ def toFilename(s):
 
 def coordinatesOnEarth(fullCoordinates):
     return abs(fullCoordinates['lat']) <= 90 and abs(fullCoordinates['lon']) <= 180
+
+
+def filterAbstract(abstract):
+    abstract = re.sub(r'[0-9]+[p][x]', "", abstract)
+    abstract = re.sub(r'(<[a-z]*>)', "", abstract)
+    abstract = abstract.replace("_", " ").replace("{", "").replace("}", "").replace("=", " ").replace("|", "").replace("  ", " ")
+
+    if len(abstract) and abstract[0] == " ":
+        abstract = abstract[1:]
+
+    if len(abstract) and abstract[-1] == " ":
+        abstract = abstract[0: -1]
+
+    return "" if len(abstract.split(" ")) < defaultMinAbstractWords else abstract
 
 
 def getImageUrl(images):
@@ -73,7 +88,7 @@ class dataLoad:
         reportProcess("finish dataLoad")
 
     def __labelsAndUrlsFromJson(self):
-        with open(r"input/wiki_hebrew_labels.json", "r", encoding='utf-8') as read_file:
+        with open(r"input/test.json", "r", encoding='utf-8') as read_file:
             labelsAndUrls = json.load(read_file)
         # saves in better data structures
         for labelDict in labelsAndUrls:
@@ -116,7 +131,7 @@ def saveWithCoordinates(data):
                     "label": label,
                     "pin": pin,
                     "url": url,
-                    "abstract": data.urlsToAbstract[url] if url in data.urlsToAbstract else "",
+                    "abstract": filterAbstract(data.urlsToAbstract[url]) if url in data.urlsToAbstract else "",
                     "imageUrl": getImageUrl(v['images'])
                 }
                 docs.append(doc)
