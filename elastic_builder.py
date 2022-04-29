@@ -88,7 +88,7 @@ class dataLoad:
         reportProcess("finish dataLoad")
 
     def __labelsAndUrlsFromJson(self):
-        with open(r"input/test.json", "r", encoding='utf-8') as read_file:
+        with open(r"input/wiki_hebrew_labels.json", "r", encoding='utf-8') as read_file:
             labelsAndUrls = json.load(read_file)
         # saves in better data structures
         for labelDict in labelsAndUrls:
@@ -118,7 +118,6 @@ def saveWithCoordinates(data):
     for label in data.allLabels:
         PARAMS["titles"] = label
         for k, v in S.get(url=URL, params=PARAMS).json()['query']['pages'].items():
-            reportProcess(v)
             if 'coordinates' in v and coordinatesOnEarth(v['coordinates'][0]):
                 url = data.labelsToUrls[label]
 
@@ -135,6 +134,7 @@ def saveWithCoordinates(data):
                     "imageUrl": getImageUrl(v['images'])
                 }
                 docs.append(doc)
+                reportProcess(doc)
     reportProcess("saveWithCoordinates finished!")
     return docs
 
