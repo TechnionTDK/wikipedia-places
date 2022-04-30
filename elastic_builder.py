@@ -1,7 +1,7 @@
 import re
 import requests
 import json
-
+from datetime import datetime
 from elasticsearch import Elasticsearch
 
 file = None
@@ -14,7 +14,9 @@ URL = "https://he.wikipedia.org/w/api.php"
 
 def reportProcess(report):
     global file
-    file.write(f'{str(report)}\n')
+    today = datetime.today()
+    report = f'{today.strftime("%d/%m/%Y %H:%M:%S")}: {str(report)}\n'
+    file.write(report)
     print(report)
 
 
@@ -118,6 +120,7 @@ def saveWithCoordinates(data):
     for label in data.allLabels:
         PARAMS["titles"] = label
         for k, v in S.get(url=URL, params=PARAMS).json()['query']['pages'].items():
+            reportProcess(label)
             if 'coordinates' in v and coordinatesOnEarth(v['coordinates'][0]):
                 url = data.labelsToUrls[label]
 
@@ -131,7 +134,7 @@ def saveWithCoordinates(data):
                     "pin": pin,
                     "url": url,
                     "abstract": filterAbstract(data.urlsToAbstract[url]) if url in data.urlsToAbstract else "",
-                    "imageUrl": getImageUrl(v['images'])
+                    "imageUrl": getImageUrl(v['images']) if 'images' in v else ''
                 }
                 docs.append(doc)
                 reportProcess(doc)
@@ -157,9 +160,9 @@ def elasticBuilder(elasticDocs):
     }
     es.indices.create(index=index, body=mapping)
     for doc in elasticDocs:
-        print("start indexing label " + doc["label"] + "...")
+        reportProcess("start indexing label " + doc["label"] + "...")
         es.index(index=index, body=doc)
-        print("finish indexing label " + doc["label"] + "...")
+        reportProcess("finish indexing label " + doc["label"] + "...")
     reportProcess("elasticBuilder finished!")
 
 
