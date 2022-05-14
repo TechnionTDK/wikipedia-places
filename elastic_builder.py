@@ -8,7 +8,7 @@ file = None
 S = requests.Session()
 index = "all"
 allowedImageSuffix = ".jpg"
-defaultMinAbstractWords = 4
+defaultMinAbstractSentences = 5
 URL = "https://he.wikipedia.org/w/api.php"
 
 
@@ -45,7 +45,12 @@ def coordinatesOnEarth(fullCoordinates):
 def filterAbstract(abstract):
     abstract = re.sub(r'[0-9]+[p][x]', "", abstract)
     abstract = re.sub(r'(<[a-z]*>)', "", abstract)
-    abstract = abstract.replace("_", " ").replace("{", "").replace("}", "").replace("=", " ").replace("|", "").replace("  ", " ")
+    abstract = abstract.replace("_", " ").replace("{", "").replace("}", "").replace("=", " ").replace("|", "").replace("==", "").replace("\n\n", "").replace("  ", " ")
+
+    abstract = abstract.split('ראו גם')[0]
+    abstract = abstract.split('לקריאה נוספת')[0]
+    abstract = abstract.split('קישורים חיצוניים')[0]
+    abstract = abstract.split('הערות שוליים')[0]
 
     if len(abstract) and abstract[0] == " ":
         abstract = abstract[1:]
@@ -53,7 +58,8 @@ def filterAbstract(abstract):
     if len(abstract) and abstract[-1] == " ":
         abstract = abstract[0: -1]
 
-    return "" if len(abstract.split(" ")) < defaultMinAbstractWords else abstract
+    abstract_sentences = abstract.split(".")
+    return " ".join(abstract_sentences[0:min(defaultMinAbstractSentences + 1, len(abstract_sentences))])
 
 
 def getImageUrl(images):
@@ -78,15 +84,12 @@ class dataLoad:
         # data structures
         self.allLabels = []
         self.labelsToUrls = {}
-        self.urlsToAbstract = {}
 
         # get data
         self.__labelsAndUrlsFromJson()
-        self.__abstractsFromJson()
 
         reportProcess(self.allLabels.__len__())
         reportProcess(f'labels size: {self.labelsToUrls.__len__()}')
-        reportProcess(f'abstacts size: {self.urlsToAbstract.__len__()}')
         reportProcess("finish dataLoad")
 
     def __labelsAndUrlsFromJson(self):
@@ -98,13 +101,6 @@ class dataLoad:
             self.allLabels.append(label)
             self.labelsToUrls[label] = labelDict['uri']
 
-    def __abstractsFromJson(self):
-        with open(r"input/wiki_hebrew_abstracts.json", "r", encoding='utf-8') as read_file:
-            abstractsAndUrls = json.load(read_file)
-        # saves in better data structures
-        for abstractDict in abstractsAndUrls:
-            url = abstractDict['uri']
-            self.urlsToAbstract[url] = abstractDict['dbo:abstract']
 
 
 def saveWithCoordinates(data):
@@ -113,7 +109,8 @@ def saveWithCoordinates(data):
         "action": "query",
         "format": "json",
         "titles": "",
-        "prop": "coordinates|images"
+        "prop": "coordinates|images|extracts",
+        "explaintext": 1
     }
     docs = []
 
@@ -133,7 +130,7 @@ def saveWithCoordinates(data):
                     "label": label,
                     "pin": pin,
                     "url": url,
-                    "abstract": filterAbstract(data.urlsToAbstract[url]) if url in data.urlsToAbstract else "",
+                    "abstract": filterAbstract(v['extract']),
                     "imageUrl": getImageUrl(v['images']) if 'images' in v else ''
                 }
                 docs.append(doc)
