@@ -15,7 +15,8 @@
 Every entry consists of the following data:  
 "label" - headline of the Wikipedia page.  
 "url" - url of the Wikipedia page.  
-"abstract" - this name is taken from Wikipedia dump files and contain the same data. This data is based on the information in the Wikipedia page.Some labels have no abstract.  
+"abstract" - this name is taken from Wikipedia dump files and contain the same data. This data is based on the information in the Wikipedia page.Some labels have no abstract.
+"imageUrl" - image url of the Wikipedia page.
 "pin" - describing the coordinates by {"location" "distance[km]"} where:
   * "location" - location that appears on this Wikipedia page (latitude & longitude).  
   * "distance[km]" - precise distance from the input's location.  
@@ -58,8 +59,8 @@ Install python3 with these commands:
 ##### 3. Input directory:  
 Input was generated following the instructions [here](https://github.com/TechnionTDK/dbpedia-hebrew).  
 And taking it's relevant output as our input (our "input" directory):  
-At the mentioned project, under "usage" - there are 3 scripts, only 2 are relevant for our input:  
-labels_generator.py, abstract_generator.py. (anchor_texts_generator.py is not relevant).    
+At the mentioned project, under "usage" - there are 3 scripts, only 1 is relevant for our input:  
+labels_generator.py. (anchor_texts_generator.py and abstract_generator.py is not relevant).    
 
 You can rerun it to generate updated input.
 
@@ -154,6 +155,9 @@ python server.py
 
 Your server is up now and can be communicated.	
   
+#### Rebuild:
+just execute the run_elastic_builder.sh script.
+
 #### Other scripts:  
 ##### poc.py :  
 This script is using the files in "poc" folder to prove that elasticsearch is a good fit to our porpuse.
