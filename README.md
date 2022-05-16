@@ -15,8 +15,8 @@
 Every entry consists of the following data:  
 "label" - headline of the Wikipedia page.  
 "url" - url of the Wikipedia page.  
-"abstract" - this name is taken from Wikipedia dump files and contain the same data. This data is based on the information in the Wikipedia page.Some labels have no abstract.
-"imageUrl" - image url of the Wikipedia page.
+"abstract" - this name is taken from Wikipedia dump files and contain the same data. This data is based on the information in the Wikipedia page.Some labels have no abstract.  
+"imageUrl" - image url of the Wikipedia page.  
 "pin" - describing the coordinates by {"location" "distance[km]"} where:
   * "location" - location that appears on this Wikipedia page (latitude & longitude).  
   * "distance[km]" - precise distance from the input's location.  
@@ -156,7 +156,7 @@ python server.py
 Your server is up now and can be communicated.	
   
 #### Rebuild:
-just execute the run_elastic_builder.sh script.
+just execute the publish_server.sh script.
 
 #### Other scripts:  
 ##### poc.py :  

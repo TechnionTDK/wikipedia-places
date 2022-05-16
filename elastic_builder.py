@@ -165,7 +165,7 @@ def elasticBuilder(elasticDocs):
 
 def main():
     global file
-    file = open("index_process.txt", "w")
+    file = open("publish_process.txt", "w")
 
     try:
         data = dataLoad()
