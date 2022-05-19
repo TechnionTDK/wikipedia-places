@@ -10,6 +10,7 @@ index = "all"
 allowedImageSuffix = ".jpg"
 defaultMinAbstractSentences = 5
 URL = "https://he.wikipedia.org/w/api.php"
+missingLabels = []
 
 
 def reportProcess(report):
@@ -117,24 +118,29 @@ def saveWithCoordinates(data):
     for label in data.allLabels:
         PARAMS["titles"] = label
         for k, v in S.get(url=URL, params=PARAMS).json()['query']['pages'].items():
-            reportProcess(label)
-            if 'coordinates' in v and coordinatesOnEarth(v['coordinates'][0]):
-                url = data.labelsToUrls[label]
+            try:
+                reportProcess(label)
+                if 'coordinates' in v and coordinatesOnEarth(v['coordinates'][0]):
+                    url = data.labelsToUrls[label]
 
-                pin = {"location": {
-                    "lat": v['coordinates'][0]['lat'],
-                    "lon": v['coordinates'][0]['lon']
-                }}
+                    pin = {"location": {
+                        "lat": v['coordinates'][0]['lat'],
+                        "lon": v['coordinates'][0]['lon']
+                    }}
 
-                doc = {
-                    "label": label,
-                    "pin": pin,
-                    "url": url,
-                    "abstract": filterAbstract(v['extract']),
-                    "imageUrl": getImageUrl(v['images']) if 'images' in v else ''
-                }
-                docs.append(doc)
-                reportProcess(doc)
+                    doc = {
+                        "label": label,
+                        "pin": pin,
+                        "url": url,
+                        "abstract": filterAbstract(v['extract']),
+                        "imageUrl": getImageUrl(v['images']) if 'images' in v else ''
+                    }
+                    docs.append(doc)
+                    reportProcess(doc)
+
+            except Exception as e:
+                missingLabels.append(label)
+
     reportProcess("saveWithCoordinates finished!")
     return docs
 
@@ -173,6 +179,7 @@ def main():
         restartElasticIndex()
         elasticBuilder(elasticDocs)
         reportProcess("============== finish successfully!!!! ==============")
+        reportProcess(f'missing data: {missingLabels}')
         file.close()
 
     except Exception as e:
