@@ -2,10 +2,10 @@ import os
 import requests
 import sys
 import pickle
-import general.utils
-import general.constants
-from split_file import split_file
-from parse_labels import parse_labels
+import general.utils as utils
+import general.constants as constants
+from elastic_builder.split_file import split_file
+from elastic_builder.parse_labels import parse_labels
 S = requests.Session()
 
 
