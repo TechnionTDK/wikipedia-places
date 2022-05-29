@@ -1,13 +1,9 @@
-from elasticsearch import Elasticsearch
 import geopy.distance
-index = "all"
+import constants
+import utils
 
 
-def connect():
-    return Elasticsearch([{'host': 'localhost', 'port': 9200}])
-
-
-def search(params):
+def search(params: list) -> list:
     query = {
         "query": {
             "bool": {
@@ -24,17 +20,17 @@ def search(params):
         }
     }
 
-    elastic_client = connect()
-    res = elastic_client.search(index=index, body=query, size=10000)
-    sourceCoords = (float(params[1]), float(params[2]))
-    withDist = []
+    elastic_client = utils.elastic_connect()
+    res = elastic_client.search(index=constants.ELASTIC_INDEX, body=query, size=10000)
+    source_coords = (float(params[1]), float(params[2]))
+    with_dist = []
     for data in res["hits"]["hits"]:
         relevant = data["_source"]
 
         location = relevant["pin"]["location"]
-        curCoords = (location["lat"], location["lon"])
-        dist = geopy.distance.distance(sourceCoords, curCoords).km
+        cur_coords = (location["lat"], location["lon"])
+        dist = geopy.distance.distance(source_coords, cur_coords).km
         relevant["pin"]["distance[km]"] = dist
 
-        withDist.append(relevant)
-    return withDist
+        with_dist.append(relevant)
+    return with_dist
