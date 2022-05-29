@@ -33,14 +33,13 @@ def elastic_connect() -> Elasticsearch:
 
 
 def full_address_to_displayed_address(address: str) -> str:
-    address.replace(" ", "")
-    address_tokens = address.split(",")
+    address_tokens = address.replace('״', '"').split(",")
     return ",".join(address_tokens[0:min(len(address_tokens), constants.DEFAULT_WORDS_IN_PLACE_NAME)])
 
 
 def filter_suggestions(pattern: str) -> str:
     pattern = re.sub(r'[0-9]', "", pattern)
-    pattern.replace("רחוב", "").replace("שדרה", "").replace("רחוב", "").replace("מספר", "").replace("רחוב", "").replace(" ", "+")
+    pattern = pattern.replace("רחוב", "").replace("שדרה", "").replace("רחוב", "").replace("מספר", "").replace("רחוב", "").replace('״', '"').replace(" ", "+").replace("++", "+")
 
     if len(pattern) and pattern[0] == "+":
         pattern = pattern[1:]
