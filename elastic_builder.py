@@ -41,7 +41,7 @@ def elastic_builder(elastic_docs: list):
 
 
 def main():
-    labels_file_number = ""
+    labels_file_number = None
     first_file = sys.argv[1] if len(sys.argv) > 1 else 0  # the first number file can be received as a parameter so the process can be started from the middle
 
     try:
