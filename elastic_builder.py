@@ -2,7 +2,8 @@ import os
 import requests
 import sys
 import pickle
-from general import constants, utils
+import general.utils
+import general.constants
 from split_file import split_file
 from parse_labels import parse_labels
 S = requests.Session()
