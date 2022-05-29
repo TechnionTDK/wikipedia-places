@@ -1,10 +1,13 @@
-29/05/2022 20:21:47: ============== Start elastic builder ==============
-29/05/2022 20:21:47: input/split_labels/labels_0.json begins
-29/05/2022 20:21:48: (((אקו)))
-29/05/2022 20:21:48: (((הד)))
-29/05/2022 20:21:48: - (סימן המינוס)
-29/05/2022 20:21:49: -וש
-29/05/2022 20:21:49: 007 באזור המסוכן
-29/05/2022 20:21:49: 007 באזור מסוכן
-29/05/2022 20:21:49: 012 מובייל
-29/05/2022 20:21:50: 012 סמייל
+29/05/2022 20:44:03: ============== Start elastic builder ==============
+29/05/2022 20:44:03: input/split_labels/labels_0.json begins
+29/05/2022 20:44:03: אגם שקודרה
+29/05/2022 20:44:03: {'label': 'אגם שקודרה', 'pin': {'location': {'lat': 42.16666667, 'lon': 19.31666667}}, 'url': 'https://en.wikipedia.org/wiki/אגם_שקודרה', 'abstract': 'אגם שקודרה (באלבנית: Liqeni i Shkodrës, במונטנגרית: Скадарско језер, באיטלקית: Lago di Scutari) הוא האגם הגדול ביותר בחצי האי הבלקני  שטחו 450 קמ"ר, והוא מתחלק בין מונטנגרו ואלבניה  העיר הגדולה היחידה לחופו היא שקודרה שבאלבניה, בקצהו הדרומי של האגם \n  גאוגרפיה  \nשטח האגם נע בין 370 קמ"ר ל-530 קמ"ר תלוי בעונת השנה  למפלס המים של האגם משרעת של כ-5 מטרים  המקור העיקרי למים הוא נהר מוראצ\'ה הזורם מהרי מונטנגרו ונשפך בצפון האגם', 'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Albania_relief_location_map.jpg'}
+29/05/2022 20:44:04: (((הד)))
+29/05/2022 20:44:04: input/split_labels/labels_0.json ends
+29/05/2022 20:44:04: input/split_labels/labels_1.json begins
+29/05/2022 20:44:04: אגם קרוק
+29/05/2022 20:44:04: אגם קרוק (אנטארקטיקה)
+29/05/2022 20:44:04: {'label': 'אגם קרוק (אנטארקטיקה)', 'pin': {'location': {'lat': -68.6167, 'lon': 78.4}}, 'url': 'https://en.wikipedia.org/wiki/אגם_קרוק_(אנטארקטיקה)', 'abstract': 'אגם קרוק (באנגלית: Krok Lake) הוא אגם קרחוני בדרום מזרח גבעות וסטפולד, בארץ הנסיכה אליזבת שבאנטארקטיקה  \nאורכו של האגם 6 קילומטרים  \nהאגם ארוך, צר ומתפתל בין הגבעות  \n  היסטוריה  \n  גילוי האגם  \nהאגם מופה חלקית על ידי קרטוגרפים נורווגים בהתבסס על תצלומי אוויר שצולמו על ידי משלחת לארס כריסטנסן (בעונת המחקר 1937–1936)  \nהאגם ממופה בשלמותו על ידי משלחת המחקר האנטארקטית הלאומית של אוסטרליה, בהתבסס על תצלומי אוויר שצולמו בעונת המחקר 1958–1957  \n  מקור השם  \nשמו של האגם (בנורווגית: "Krokvatnet" - האגם המתפתל) ניתן לו על ידי הקרטוגרפים הנורווגים שמיפו אותו, בשל צורתו המפותלת', 'imageUrl': 'https://upload.wikimedia.org/wikipedia/commons/2/24/Antarctica_relief_location_map.jpg'}
+29/05/2022 20:44:04: input/split_labels/labels_1.json ends
+29/05/2022 20:44:04: restart_elastic_index started
+29/05/2022 20:44:04: Finish With Exception: ConnectionError(<urllib3.connection.HTTPConnection object at 0x103f47d90>: Failed to establish a new connection: [Errno 61] Connection refused) caused by: NewConnectionError(<urllib3.connection.HTTPConnection object at 0x103f47d90>: Failed to establish a new connection: [Errno 61] Connection refused)

@@ -17,8 +17,7 @@ def coordinates_on_earth(full_coordinates: dict) -> bool:
 def filter_abstract(abstract: str) -> str:
     abstract = re.sub(r'[0-9]+[p][x]', "", abstract)
     abstract = re.sub(r'(<[a-z]*>)', "", abstract)
-    abstract = abstract.replace("_", " ").replace("{", "").replace("}", "").replace("=", " ").replace("|", "").replace(
-        "==", "").replace("\n\n", "").replace("  ", " ")
+    abstract = abstract.replace("_", " ").replace("{", "").replace("}", "").replace("=", " ").replace("|", "").replace("==", "").replace("\n\n", "").replace("  ", " ")
 
     abstract = abstract.split('ראו גם')[0]
     abstract = abstract.split('לקריאה נוספת')[0]
@@ -52,8 +51,8 @@ def get_image_url(images: list) -> str:
     return ""
 
 
-def add_data_to_doc(data: DataLoad):
-    with open(constants.DICT_LABELS_FILE_PATH, "wb", ) as labels_dict_file:
+def add_data_to_doc(data: DataLoad, file_number: int):
+    with open(f'{constants.DICT_LABELS_FILE_PATH}{file_number}{constants.DICT_LABELS_FILE_EXTENSION}', "wb") as labels_dict_file:
         params = {
             "action": "query",
             "format": "json",
@@ -86,7 +85,8 @@ def add_data_to_doc(data: DataLoad):
         pickle.dump(dictionary_data, labels_dict_file)
 
 
-def parse_labels(filepath: str):
+def parse_labels(file_number: int):
+    filepath = f'{constants.SPLIT_LABELS_DIRECTORY_PATH}{constants.SPLIT_LABELS_FILE_PATH}{str(file_number)}{constants.LABELS_FILE_EXTENSION}'
     utils.report_process(f'{filepath} begins')
-    add_data_to_doc(DataLoad(filepath))
+    add_data_to_doc(DataLoad(filepath), file_number)
     utils.report_process(f'{filepath} ends')
