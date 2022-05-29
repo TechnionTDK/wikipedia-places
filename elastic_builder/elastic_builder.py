@@ -35,9 +35,7 @@ def elastic_builder(elastic_docs: list):
     }
     es.indices.create(index=constants.ELASTIC_INDEX, body=mapping)
     for doc in elastic_docs:
-        utils.report_process("start indexing label " + doc["label"] + "...")
-        es.ELASTIC_INDEX(index=constants.ELASTIC_INDEX, body=doc)
-        utils.report_process("finish indexing label " + doc["label"] + "...")
+        es.index(index=constants.ELASTIC_INDEX, body=doc)
     utils.report_process("elastic_builder finished!")
 
 
