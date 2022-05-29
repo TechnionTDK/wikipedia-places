@@ -1,5 +1,6 @@
 import geopy.distance
-from general import utils, constants
+import constants
+import utils
 
 
 def search(params: list) -> list:

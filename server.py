@@ -1,7 +1,7 @@
 from flask import Flask, request
 import json
-from server.search import search
-from server.place_details import get_place_details_by_name, get_place_details_by_coordinates, get_suggestions
+from search import search
+from place_details import get_place_details_by_name, get_place_details_by_coordinates, get_suggestions
 
 # instantiate the app
 app = Flask(__name__)

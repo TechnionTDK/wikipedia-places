@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 from elasticsearch import Elasticsearch
 from typing import Tuple, Any
-from general import constants
+import constants
 
 
 def labels_from_json(labels_path: str) -> Tuple[list, dict]:

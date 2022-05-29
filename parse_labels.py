@@ -1,7 +1,9 @@
 import re
 import requests
 import pickle
-from general import constants, utils
+from elastic_builder import constants
+import utils
+
 S = requests.Session()
 
 

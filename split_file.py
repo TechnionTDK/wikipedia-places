@@ -1,5 +1,6 @@
 import json
-from general import constants, utils
+from elastic_builder import constants
+import utils
 
 
 def split_file():

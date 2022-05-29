@@ -1,5 +1,7 @@
 import requests
-from general import constants, utils
+import constants
+import utils
+
 S = requests.Session()
 
 
