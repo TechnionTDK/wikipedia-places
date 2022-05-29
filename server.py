@@ -21,7 +21,7 @@ def RUN_GET_PLACE_DETAILS_BY_NAME():
 
 @app.route("/place_details_by_coordinates")
 def RUN_GET_PLACE_DETAILS_BY_COORDINATES():
-    return json.dumps(get_place_details_by_coordinates([request.args.get('lat,lon', type=str).split(",")]), ensure_ascii=False)
+    return json.dumps(get_place_details_by_coordinates(lat=request.args.get('lat', type=float), lon=request.args.get('lon', type=float)), ensure_ascii=False)
 
 
 @app.route("/get_suggestions")

@@ -21,10 +21,10 @@ def get_place_details_by_name(name: str) -> dict:
     }
 
 
-def get_place_details_by_coordinates(lat_lon: list) -> dict:
+def get_place_details_by_coordinates(lat: float, lon: float) -> dict:
     params = {
-        "lat": lat_lon[0],
-        "lon": lat_lon[1],
+        "lat": lat,
+        "lon": lon,
         "format": "json",
         "zoom": 18,
         "addressdetails": 1
