@@ -4,8 +4,8 @@ import sys
 import pickle
 import general.utils as utils
 import general.constants as constants
-from elastic_builder.split_file import split_file
-from elastic_builder.parse_labels import parse_labels
+import elastic_builder.split_file as split_file
+import elastic_builder.parse_labels as parse_labels
 S = requests.Session()
 
 
@@ -48,12 +48,12 @@ def main():
         utils.init_report_file()
         utils.report_process("============== Start elastic builder ==============")
         if first_file != 0:
-            split_file()  # split the labels file
+            split_file.split_file()  # split the labels file
 
         _, _, label_files = next(os.walk(constants.SPLIT_LABELS_DIRECTORY_PATH))  # gets the number of the files the labels were split
         for file_number in range(first_file, len(label_files)):  # parse data and save it in separate files
             labels_file_number = file_number
-            parse_labels(file_number)
+            parse_labels.parse_labels(file_number)
 
         labels_file_number = None
         labels_dict = []
