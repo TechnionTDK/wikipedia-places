@@ -1,4 +1,3 @@
-input/all_labels/*
 input/dictionary_labels/*
 input/split_labels/*
 .idea/*

@@ -47,7 +47,7 @@ def main():
     try:
         utils.init_report_file()
         utils.report_process("============== Start elastic builder ==============")
-        if first_file != 0:
+        if first_file == 0:
             split_file.split_file()  # split the labels file
 
         _, _, label_files = next(os.walk(constants.SPLIT_LABELS_DIRECTORY_PATH))  # gets the number of the files the labels were split
