@@ -67,7 +67,7 @@ def add_data_to_doc(data: DataLoad, file_number: int):
         for label in data.all_labels:
             params["titles"] = label
             for label_key, label_value in S.get(url=constants.WIKIPEDIA_API_URL, params=params).json()['query']['pages'].items():
-                utils.report_process(label)
+                utils.report_process(f'{[file_number]}: {label}')
                 if 'coordinates' in label_value and coordinates_on_earth(label_value['coordinates'][0]):
                     pin = {"location": {
                         "lat": label_value['coordinates'][0]['lat'],
@@ -82,7 +82,7 @@ def add_data_to_doc(data: DataLoad, file_number: int):
                         "imageUrl": get_image_url(label_value['images']) if 'images' in label_value else ''
                     }
                     dictionary_data.append(doc)
-                    utils.report_process(doc)
+                    utils.report_process(f'{[file_number]}: {doc}')
 
         pickle.dump(dictionary_data, labels_dict_file)
 
