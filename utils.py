@@ -39,12 +39,12 @@ def full_address_to_displayed_address(address: str) -> str:
 
 def filter_suggestions(pattern: str) -> str:
     pattern = re.sub(r'[0-9]', "", pattern)
-    pattern = pattern.replace("רחוב", "").replace("שדרה", "").replace("רחוב", "").replace("מספר", "").replace("רחוב", "").replace('״', '"').replace(" ", "+").replace("++", "+")
+    pattern = pattern.replace("_", " ").replace("רחוב", "").replace("שדרה", "").replace("רחוב", "").replace("מספר", "").replace("רחוב", "").replace('״', '"').replace("  ", " ")
 
-    if len(pattern) and pattern[0] == "+":
+    if len(pattern) and pattern[0] == " ":
         pattern = pattern[1:]
 
-    if len(pattern) and pattern[-1] == "+":
+    if len(pattern) and pattern[-1] == " ":
         pattern = pattern[0: -1]
 
     return pattern
