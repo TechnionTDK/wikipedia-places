@@ -2,6 +2,7 @@ import os
 import requests
 import sys
 import pickle
+import argparse
 import utils
 import constants
 import split_file
@@ -40,20 +41,29 @@ def elastic_builder(elastic_docs: list):
     utils.report_process("elastic_builder finished!")
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Script for parsing the places data and indexing the elastic search')
+    parser.add_argument("-f", "--file", help="File number for starting the parsing of the data (ignoring the files split). if --index arg is set, this arg is not relevant", type=int, default=0)
+    parser.add_argument("-i", "--index", help="if is set, partially process is running- only restart and index of elastic search.", action="store_true")
+    return parser.parse_args()
+
+
 def main():
     labels_file_number = None
-    first_file = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # the first number file can be received as a parameter so the process can be started from the middle
+    args = parse_arguments()
 
     try:
         utils.init_report_file()
         utils.report_process("============== Start elastic builder ==============")
-        if first_file == 0:
+        if not args.index and args.file == 0:
             split_file.split_file()  # split the labels file
 
         _, _, label_files = next(os.walk(constants.SPLIT_LABELS_DIRECTORY_PATH))  # gets the number of the files the labels were split
-        for file_number in range(first_file, len(label_files)):  # parse data and save it in separate files
-            labels_file_number = file_number
-            parse_labels.parse_labels(file_number)
+
+        if not args.index:
+            for file_number in range(args.file, len(label_files)):  # parse data and save it in separate files
+                labels_file_number = file_number
+                parse_labels.parse_labels(file_number)
 
         labels_file_number = None
         labels_dict = []
@@ -63,7 +73,6 @@ def main():
 
         restart_elastic_index()
         elastic_builder(labels_dict)
-
         utils.report_process("============== Finish Successfully!!!! ==============")
 
     except Exception as e:

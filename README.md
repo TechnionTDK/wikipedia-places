@@ -147,13 +147,13 @@
 
 ### 8. Build the Elasticsearch:
 * This phase is very long and can take several days- you should use [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command to prevent it from stopping.
-* For checking the process, see the logs in the report_file.txt.
-> cat report_file.txt
-* This builder creates the indices for Elasticsearch.
+* This builder takes all the wikipedia labels and parse it- filter the articles with coordinates and add the imageUrl and the first paragraph of the article. in the end, it creates the indices for Elasticsearch.
 * Run the elastic_builder.py using [screen](https://github.com/TechnionTDK/project-guidelines/wiki/HowTo#how-to-execute-a-long-running-process-on-linux) command:
 > screen
-> python elastic_builder.py   
-
+> python elastic_builder.py
+* For checking the process, see the logs in the report_file.txt.
+> cat report_file.txt
+* if problem is occurred, you can continue running the script from the middle (all parsed data is saved locally). print report_file.txt and check what file the process is stopped. use the argument --file (-f) <x> for continuing from the file number <x>. use the argument --index (-i) if you have the all parsed data, and you want to pass the parsing and only index the elastic search.
 
 ### 9. Run server.py:  
 * Run the Flask's server.
