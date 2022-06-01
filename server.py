@@ -1,5 +1,6 @@
 from flask import Flask, request
 import json
+from constants import DEFAULT_SEARCH_SIZE
 from search import search
 from place_details import get_place_details_by_name, get_place_details_by_coordinates, get_suggestions
 
@@ -11,7 +12,7 @@ app = Flask(__name__)
 def RUN_SEARCH():
     params = [request.args.get('radius', type=str)]
     params += request.args.get('lat,lon', type=str).split(",")
-    return json.dumps(search(params), ensure_ascii=False)
+    return json.dumps(search(params, from_index=request.args.get('from', type=int, default=0), size=request.args.get('size', type=int, default=DEFAULT_SEARCH_SIZE)), ensure_ascii=False)
 
 
 @app.route("/place_details_by_name")

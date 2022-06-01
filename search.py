@@ -3,26 +3,10 @@ import constants
 import utils
 
 
-def search(params: list) -> list:
-    # query = {
-    #     "query": {
-    #         "bool": {
-    #             "filter": {
-    #                 "geo_distance": {
-    #                     "distance": params[0],
-    #                     "pin.location": {
-    #                         "lat": params[1],
-    #                         "lon": params[2]
-    #                     }
-    #                 }
-    #             }
-    #         }
-    #     }
-    # }
-
+def search(params: list, from_index: int = 0, size: int = constants.DEFAULT_SEARCH_SIZE) -> list:
     query = {
-        "from": 0,
-        "size": 10,
+        "from": from_index,
+        "size": size,
         "query": {
             "bool": {
                 "filter": {
