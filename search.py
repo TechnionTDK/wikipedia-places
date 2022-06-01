@@ -22,7 +22,7 @@ def search(params: list) -> list:
 
     query = {
         "from": 0,
-        "size": 1,
+        "size": 10,
         "query": {
             "bool": {
                 "filter": {
