@@ -39,7 +39,7 @@ def search(params: list) -> list:
     }
 
     elastic_client = utils.elastic_connect()
-    res = elastic_client.search(index=constants.ELASTIC_INDEX, body=query, size=10000)
+    res = elastic_client.search(index=constants.ELASTIC_INDEX, body=query)
     source_coords = (float(params[1]), float(params[2]))
     with_dist = []
     for data in res["hits"]["hits"]:
