@@ -4,7 +4,25 @@ import utils
 
 
 def search(params: list) -> list:
+    # query = {
+    #     "query": {
+    #         "bool": {
+    #             "filter": {
+    #                 "geo_distance": {
+    #                     "distance": params[0],
+    #                     "pin.location": {
+    #                         "lat": params[1],
+    #                         "lon": params[2]
+    #                     }
+    #                 }
+    #             }
+    #         }
+    #     }
+    # }
+
     query = {
+        "from": 0,
+        "size": 1,
         "query": {
             "bool": {
                 "filter": {
