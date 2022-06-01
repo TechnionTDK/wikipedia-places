@@ -19,6 +19,8 @@
 * lat- location's latitude.
 * lon- location's longitude.
 * radius- a number and it's unit [mm, cm, m, km...].
+* [optional] from- an index to start receiving the data from (using for pagination).
+* [optional] size- number of places for receiving (using for pagination).
 
 
 ##### Output: All Wikipedia entries in Hebrew with location (coordinates) at the defined area-
