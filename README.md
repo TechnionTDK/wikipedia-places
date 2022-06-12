@@ -15,7 +15,7 @@
 
 ## Server Structure:
 <p align="center">
-    <img src="/assets/app_structure.jpeg" alt="drawing" width="200"/>
+    <img src="/assets/app_structure.jpeg" alt="drawing"/>
 </p>
 
 
