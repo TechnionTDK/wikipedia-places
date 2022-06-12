@@ -13,6 +13,12 @@
 * The app uses [Nominatim API](https://nominatim.org/release-docs/develop/api/Overview/) for Place Details requests.
 
 
+## Server Structure:
+<p align="center">
+    <img src="/assets/app_structure.jpeg" alt="drawing" width="200"/>
+</p>
+
+
 ## API:
 ### wiki_by_place
 ##### Parameters:
