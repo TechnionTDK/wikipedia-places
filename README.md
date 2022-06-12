@@ -5,7 +5,7 @@
 
 
 ## Introduction:
-* This project was done in the TDK - Technion Data & Knowledge Lab of the CS faculty By Nerya Hadad, Tzahi Levi, and Raz Levi under the supervision of Dr. Oren Mishali.
+* This project was done in the TDK - Technion Data & Knowledge Lab of the CS faculty By Nerya Hadad under the supervision of Dr. Oren Mishali, and updated later by Tzahi Levi, and Raz Levi.
 
 
 ## Prerequisite:
