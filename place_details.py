@@ -41,6 +41,7 @@ def get_suggestions(pattern: str) -> dict:
     params = {
         "q": pattern,
         "format": "json",
+        "accept-language": "he"
     }
 
     suggestions_response = S.get(url=f'{constants.NOMINATIM_API_URL}/search', params=params).json()
@@ -53,7 +54,7 @@ def get_suggestions(pattern: str) -> dict:
             'icon': suggestion['icon'] if suggestion != {} and 'icon' in suggestion else ""
         }
 
-        if new_suggestion['name'] not in suggestions_names and pattern in new_suggestion['name']:
+        if new_suggestion['name'] not in suggestions_names:
             suggestions.append(new_suggestion)
             suggestions_names.append(new_suggestion['name'])
 

@@ -47,4 +47,4 @@ def filter_suggestions(pattern: str) -> str:
     if len(pattern) and pattern[-1] == " ":
         pattern = pattern[0: -1]
 
-    return pattern
+    return pattern.replace(" ", "+")
