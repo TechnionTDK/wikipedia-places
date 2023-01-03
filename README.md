@@ -2,6 +2,7 @@
 
 
 > This project's final product is a server- http request returning json.
+Used as a server of WikiPo (Google's play app).
 
 
 ## Introduction:
